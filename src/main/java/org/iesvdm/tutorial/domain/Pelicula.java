@@ -19,10 +19,6 @@ import java.util.Set;
 @Builder
 
 @Entity
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id", scope = Pelicula.class)
-@JsonSerialize(using = PeliculaSerializer.class)
 public class Pelicula {
 
     @Id
