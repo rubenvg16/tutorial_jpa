@@ -16,6 +16,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.math.BigDecimal;
@@ -23,10 +24,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * TEST 2 ONETOMANY CON CLAVES FORANEAS NO IDENTIFICATIVAS, ES DECIR MANY CON CLAVE SINTETICA
- * SUBROGADA
- */
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class )
 @SpringBootTest
 public class PeliculaCategoriaTests {
@@ -74,7 +72,7 @@ public class PeliculaCategoriaTests {
                 .clasificacionEnum(ClasificacionEnum.JUVENIL)
                 .build();
 
-        idiomaFr.getPeliculas().add(pelicula);
+        //idiomaFr.getPeliculas().add(pelicula);
         peliculaRepository.save(pelicula);
 
         PeliculaCategoria peliculaCategoria = new PeliculaCategoria(null,
@@ -85,16 +83,7 @@ public class PeliculaCategoriaTests {
 
     @Order(2)
     @Test
-//No puedes utilizar la anotación @Transactional para marcar
-//el metodo de un test como transactional
-//    @Transactional
     void leerPeliculaYCategoriaPorCategoria() {
-
-        //Para tener acceso a los lazy en los tests necesitas wrapear los accesos
-        //lazy mediante una transaccion, en el tiempo de vida de una transaccion
-        //la sesión de jpa está viva y pueden resolverse colecciones lazy
-
-        //Si comentas el wrap de transaction dara una LazyInitializationException
         transactionTemplate.executeWithoutResult(transactionStatus -> {
 
             List<Categoria> listCategoria = this.categoriaRepository
@@ -120,17 +109,11 @@ public class PeliculaCategoriaTests {
     @Order(3)
     @Test
     void desasociarCategoria() {
-
-        //Quiero desasociar la categoria 1 de la pelicula 1
-
-        //Busco peliculacategoria para categoria 1 y pelicula 1
         PeliculaCategoria peliculaCategoria = peliculaCategoriaRepository
                 .findPeliculaCategoriaByCategoria_IdAndPelicula_Id(1L, 1L)
                 .orElse(null);
 
         peliculaCategoriaRepository.delete(peliculaCategoria);
-
-
     }
 
 }

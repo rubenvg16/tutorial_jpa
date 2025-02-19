@@ -10,7 +10,7 @@ import lombok.*;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
 @Entity
-public class HeroHasPoder {
+public class HeroeHasPoder {
 
 
     @Id

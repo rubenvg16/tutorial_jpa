@@ -25,5 +25,5 @@ public class Poder {
 
     @OneToMany
     @ToString.Exclude
-    private Set<HeroHasPoder> heroesPoder = new HashSet<>();
+    private Set<HeroeHasPoder> heroesPoder = new HashSet<>();
 }

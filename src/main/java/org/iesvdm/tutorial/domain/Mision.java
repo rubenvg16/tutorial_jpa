@@ -20,11 +20,12 @@ public class Mision {
     @EqualsAndHashCode.Include
     private Long id;
 
-    private String descripción;
+    private String descripcion;
 
     private String villano;
 
     @OneToMany
+    @Builder.Default
     private Set<Heroe> heroes = new HashSet<>();
 
 }

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,13 +25,12 @@ public class Heroe {
     private String nombre;
 
     @JsonFormat(pattern = "YYYY-MM-DD")
-    private Date fechaNac;
+    private LocalDate fechaNac;
 
     @OneToMany( mappedBy = "heroe")
     @Builder.Default
-    private Set<HeroHasPoder> heroesPoder = new HashSet<>();
+    private Set<HeroeHasPoder> heroesPoder = new HashSet<>();
 
     @ManyToOne
     private Mision mision;
-
 }
